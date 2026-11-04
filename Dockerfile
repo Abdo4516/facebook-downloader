@@ -1,6 +1,11 @@
-FROM node:18-bullseye-slim
+FROM node:20-bookworm-slim
 
-RUN apt-get update && apt-get install -y python3 python3-pip ffmpeg && rm -rf /var/lib/apt/lists/*
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install Python 3, ffmpeg, and SSL certificates
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends python3 ffmpeg ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
